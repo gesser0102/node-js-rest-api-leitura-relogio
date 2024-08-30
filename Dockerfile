@@ -1,0 +1,21 @@
+FROM node:18-alpine
+
+WORKDIR /usr/src/app
+
+# Copiar package.json e package-lock.json
+COPY package*.json ./
+
+# Instalar as dependências
+RUN npm install
+
+# Copiar o código-fonte
+COPY . .
+
+# Compilar o TypeScript para JavaScript
+RUN npm run build
+
+# Expor a porta da aplicação
+EXPOSE 3000
+
+# Iniciar a aplicação com o código compilado em dist/app.js
+CMD ["npm", "start"]
