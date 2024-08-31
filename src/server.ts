@@ -3,11 +3,16 @@ import { Routes } from './routes/routes';
 import path from 'path';
 import * as fs from 'fs';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 const app = express();
+const port = process.env.PORT;
 
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({ limit: '5mb' }));
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
@@ -29,6 +34,6 @@ app.get('/temp/:filename', (req, res) => {
 
 app.use('/', Routes);
 
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
